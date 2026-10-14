@@ -10,14 +10,14 @@
 
   const $ = (id) => document.getElementById(id);
   const DISCIPLINES = [
-    {id:"Networking",icon:"⌁",title:"Networking & Infrastructure",desc:"Routing, switching, protocols, wireless, network design.",meta:"CONNECTIVITY / NETOPS"},
-    {id:"Cybersecurity",icon:"⌑",title:"Cybersecurity & Pentesting",desc:"Threat modelling, ethical hacking, defence, digital forensics.",meta:"DEFENCE / OFFENCE"},
-    {id:"Software Development",icon:"⌘",title:"Software Development",desc:"Programming, APIs, backend services, databases and architecture.",meta:"BUILD / SHIP"},
-    {id:"Frontend & UI/UX",icon:"◈",title:"Frontend & UI/UX",desc:"Interfaces, accessibility, interaction design and web experiences.",meta:"EXPERIENCE / DESIGN"},
-    {id:"AI & Data",icon:"⠿",title:"AI, Data & Automation",desc:"Machine learning, analytics, scripting and intelligent workflows.",meta:"INSIGHT / AUTOMATE"},
-    {id:"Cloud & DevOps",icon:"☁",title:"Cloud & DevOps",desc:"Cloud platforms, CI/CD, containers, observability and reliability.",meta:"DEPLOY / OPERATE"},
-    {id:"Electronics & IoT",icon:"⌬",title:"Electronics & IoT",desc:"Circuits, embedded systems, sensors, robotics and connected devices.",meta:"HARDWARE / SIGNAL"},
-    {id:"Product & Innovation",icon:"✳",title:"Product & Innovation",desc:"Product thinking, research, entrepreneurship and emerging tech.",meta:"IDEATE / EXPERIMENT"}
+    {id:"Networking",icon:"⌁",title:"Networking & Infrastructure",desc:"Routing, switching, protocols, wireless, network design.",meta:"CONNECTIVITY / NETOPS",href:"networking.html"},
+    {id:"Cybersecurity",icon:"⌑",title:"Cybersecurity & Pentesting",desc:"Threat modelling, ethical hacking, defence, digital forensics.",meta:"DEFENCE / OFFENCE",href:"cybersecurity.html"},
+    {id:"Software Development",icon:"⌘",title:"Software Development",desc:"Programming, APIs, backend services, databases and architecture.",meta:"BUILD / SHIP",href:"software-development.html"},
+    {id:"Frontend & UI/UX",icon:"◈",title:"Frontend & UI/UX",desc:"Interfaces, accessibility, interaction design and web experiences.",meta:"EXPERIENCE / DESIGN",href:"frontend-uiux.html"},
+    {id:"AI & Data",icon:"⠿",title:"AI, Data & Automation",desc:"Machine learning, analytics, scripting and intelligent workflows.",meta:"INSIGHT / AUTOMATE",href:"ai-data.html"},
+    {id:"Cloud & DevOps",icon:"☁",title:"Cloud & DevOps",desc:"Cloud platforms, CI/CD, containers, observability and reliability.",meta:"DEPLOY / OPERATE",href:"cloud-devops.html"},
+    {id:"Electronics & IoT",icon:"⌬",title:"Electronics & IoT",desc:"Circuits, embedded systems, sensors, robotics and connected devices.",meta:"HARDWARE / SIGNAL",href:"electronics-iot.html"},
+    {id:"Product & Innovation",icon:"✳",title:"Product & Innovation",desc:"Product thinking, research, entrepreneurship and emerging tech.",meta:"IDEATE / EXPERIMENT",href:"product-innovation.html"}
   ];
   const MISSIONS = {
     inspect: {title:"ORION / RECON BRIEFING",hint:"Type `help` to view safe commands",intro:[
@@ -100,17 +100,34 @@
   function renderDisciplines() {
     $("disciplineGrid").innerHTML = DISCIPLINES.map(d => {
       const selected = state.interests.includes(d.id);
-      return `<button class="discipline-card ${selected?"selected":""}" data-interest="${escapeHTML(d.id)}" aria-pressed="${selected}">
-        <span class="discipline-icon">${d.icon}</span><h3>${escapeHTML(d.title)}</h3><p>${escapeHTML(d.desc)}</p><span class="discipline-meta">${escapeHTML(d.meta)}</span></button>`;
+      return `<div class="discipline-card ${selected?"selected":""}" data-interest-card="${escapeHTML(d.id)}">
+        <a class="discipline-hub-link" href="${escapeHTML(d.href)}" data-hub-link="${escapeHTML(d.id)}">
+          <span class="discipline-icon">${d.icon}</span>
+          <h3>${escapeHTML(d.title)}</h3>
+          <p>${escapeHTML(d.desc)}</p>
+          <span class="discipline-meta">${escapeHTML(d.meta)} · OPEN HUB ↗</span>
+        </a>
+        <button type="button" class="discipline-toggle" data-interest="${escapeHTML(d.id)}" aria-pressed="${selected}">
+          ${selected ? "✓ Selected" : "+ Interest"}
+        </button>
+      </div>`;
     }).join("");
     $("interestCount").textContent = `${state.interests.length} interest${state.interests.length===1?"":"s"} selected`;
   }
   $("disciplineGrid").addEventListener("click", (event) => {
-    const button = event.target.closest("[data-interest]"); if (!button) return;
-    const id = button.dataset.interest;
+    const toggle = event.target.closest("[data-interest]");
+    if (!toggle) return;
+    event.preventDefault();
+    event.stopPropagation();
+    const id = toggle.dataset.interest;
     state.interests = state.interests.includes(id) ? state.interests.filter(x=>x!==id) : [...state.interests,id];
     writeLocal("tu_interests",state.interests); renderDisciplines();
     track("interest_toggled", id, state.interests.includes(id) ? "selected" : "deselected");
+  });
+  $("disciplineGrid").addEventListener("click", (event) => {
+    const link = event.target.closest("[data-hub-link]");
+    if (!link) return;
+    track("discipline_hub_opened", link.dataset.hubLink, null);
   });
   $("saveInterests").addEventListener("click", async () => {
     writeLocal("tu_interests",state.interests);
@@ -300,7 +317,7 @@
   $("terminalSubmit").addEventListener("click",handleCommand);
   $("terminalInput").addEventListener("keydown",e=>{if(e.key==="Enter")handleCommand();});
   document.querySelectorAll(".mission").forEach(btn=>btn.addEventListener("click",()=>renderMission(btn.dataset.mission)));
-  $("rangeButton").addEventListener("click",()=>{document.querySelector("#range").scrollIntoView({behavior:"smooth"});renderMission("inspect");});
+  $("rangeButton").addEventListener("click",()=>{ window.location.href = "lab.html"; });
   $("exploreButton").addEventListener("click",()=>{document.querySelector("#disciplines").scrollIntoView({behavior:"smooth"});track("explore_network_clicked");});
   document.querySelectorAll("[data-view-link]").forEach(a=>a.addEventListener("click",()=>{
     document.querySelectorAll(".nav-link").forEach(n=>n.classList.toggle("active",n===a));

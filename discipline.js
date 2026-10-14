@@ -1,7 +1,10 @@
 (() => {
   "use strict";
 
-  const DISCIPLINE_ID = "Cybersecurity";
+  // Read identity from the page so one script serves every hub.
+  const body = document.body;
+  const DISCIPLINE_ID = body.dataset.discipline || "Cybersecurity";
+  const DISCIPLINE_LABEL = body.dataset.disciplineLabel || DISCIPLINE_ID;
 
   const CONFIG = window.TECH_UNBOUND_CONFIG || {};
   const hasConfig = Boolean(
@@ -62,52 +65,58 @@
     const btn = $("toggleInterest");
     const status = $("interestStatus");
     if (btn) {
-      btn.textContent = selected ? "Remove from my interests" : "Add to my interests";
+      btn.textContent = selected
+        ? "Remove from my interests"
+        : "Add to my interests";
       btn.classList.toggle("button-primary", !selected);
       btn.classList.toggle("button-quiet", selected);
     }
     if (status) {
       status.textContent = selected
-        ? "Cybersecurity is in your interest list on this device."
+        ? `${DISCIPLINE_LABEL} is in your interest list on this device.`
         : "Interest not selected on this device yet.";
     }
   }
 
-  $("toggleInterest").addEventListener("click", () => {
-    if (interests.includes(DISCIPLINE_ID)) {
-      interests = interests.filter((x) => x !== DISCIPLINE_ID);
-      toast("Removed Cybersecurity from your interests.");
-    } else {
-      interests = [...interests, DISCIPLINE_ID];
-      toast("Cybersecurity added to your interests.");
-    }
-    writeLocal("tu_interests", interests);
-    updateInterestUI();
+  const toggleBtn = $("toggleInterest");
+  if (toggleBtn) {
+    toggleBtn.addEventListener("click", () => {
+      if (interests.includes(DISCIPLINE_ID)) {
+        interests = interests.filter((x) => x !== DISCIPLINE_ID);
+        toast(`Removed ${DISCIPLINE_LABEL} from your interests.`);
+      } else {
+        interests = [...interests, DISCIPLINE_ID];
+        toast(`${DISCIPLINE_LABEL} added to your interests.`);
+      }
+      writeLocal("tu_interests", interests);
+      updateInterestUI();
 
-    const profile = readLocal("tu_profile", null);
-    const visitorId = localStorage.getItem("tu_visitor_id");
-    if (client && profile && visitorId) {
-      client.from("team_profiles").upsert({
-        visitor_id: visitorId,
-        callsign: profile.callsign,
-        display_name: profile.displayName || null,
-        institution: profile.institution || null,
-        skill_level: profile.skillLevel || "Curious beginner",
-        goals: profile.goals || null,
-        interests,
-        is_public: profile.isPublic !== false,
-        updated_at: new Date().toISOString()
-      }, { onConflict: "visitor_id" }).then(({ error }) => {
-        if (error) console.warn(error.message);
-      });
-    }
-  });
+      const profile = readLocal("tu_profile", null);
+      const visitorId = localStorage.getItem("tu_visitor_id");
+      if (client && profile && visitorId) {
+        client.from("team_profiles").upsert({
+          visitor_id: visitorId,
+          callsign: profile.callsign,
+          display_name: profile.displayName || null,
+          institution: profile.institution || null,
+          skill_level: profile.skillLevel || "Curious beginner",
+          goals: profile.goals || null,
+          interests,
+          is_public: profile.isPublic !== false,
+          updated_at: new Date().toISOString()
+        }, { onConflict: "visitor_id" }).then(({ error }) => {
+          if (error) console.warn(error.message);
+        });
+      }
+    });
+  }
 
   function renderPeople(rows) {
     const list = $("peopleList");
+    if (!list) return;
     if (!rows.length) {
       list.innerHTML =
-        '<div class="empty-state">No public profiles have selected Cybersecurity yet. Be the first — add the interest above, then save a public profile on the home page.</div>';
+        `<div class="empty-state">No public profiles have selected ${escapeHTML(DISCIPLINE_LABEL)} yet. Be the first — add the interest above, then save a public profile on the home page.</div>`;
       return;
     }
     list.innerHTML = rows.map((p) => {
@@ -127,8 +136,9 @@
   function renderLeaderboard(rows) {
     const body = $("leaderboardBody");
     const meta = $("boardMeta");
+    if (!body) return;
     if (!rows.length) {
-      body.innerHTML = `<tr><td colspan="6" class="empty-state">No public Cybersecurity explorers yet. Complete lab missions and keep your profile public to appear here.</td></tr>`;
+      body.innerHTML = `<tr><td colspan="6" class="empty-state">No public explorers for ${escapeHTML(DISCIPLINE_LABEL)} yet. Complete lab missions and keep your profile public to appear here.</td></tr>`;
       if (meta) meta.textContent = "";
       return;
     }
@@ -164,7 +174,6 @@
     const body = $("leaderboardBody");
 
     if (!client) {
-      // Local fallback: show this device only if they selected the interest
       const profile = readLocal("tu_profile", null);
       const completed = readLocal("tu_completed", []);
       const localInterests = readLocal("tu_interests", []);
@@ -182,19 +191,22 @@
         renderPeople([row]);
         renderLeaderboard([row]);
       } else {
-        list.innerHTML =
-          '<div class="empty-state">Connect Supabase to see the sector board across devices.<br><br><span class="mono">LOCAL MODE</span> — only this browser is visible for now.</div>';
-        body.innerHTML =
-          '<tr><td colspan="6" class="empty-state">Sector board needs shared data (Supabase) to rank explorers across the community.</td></tr>';
+        if (list) {
+          list.innerHTML =
+            '<div class="empty-state">Connect Supabase to see the sector board across devices.<br><br><span class="mono">LOCAL MODE</span></div>';
+        }
+        if (body) {
+          body.innerHTML =
+            '<tr><td colspan="6" class="empty-state">Sector board needs shared data (Supabase) to rank explorers across the community.</td></tr>';
+        }
       }
       return;
     }
 
-    list.innerHTML = '<div class="empty-state">Loading explorers…</div>';
-    body.innerHTML = '<tr><td colspan="6" class="empty-state">Loading sector board…</td></tr>';
+    if (list) list.innerHTML = '<div class="empty-state">Loading explorers…</div>';
+    if (body) body.innerHTML = '<tr><td colspan="6" class="empty-state">Loading sector board…</td></tr>';
 
     try {
-      // Prefer dedicated RPC (mission counts + public profiles for this interest)
       let enriched = [];
       const { data: boardData, error: boardErr } = await client.rpc(
         "public_sector_board",
@@ -205,7 +217,6 @@
         enriched = typeof boardData === "string" ? JSON.parse(boardData) : boardData;
         if (!Array.isArray(enriched)) enriched = [];
       } else {
-        // Fallback: public profiles only (counts may be 0 without the RPC)
         const { data: profiles, error } = await client
           .from("team_profiles")
           .select("visitor_id,callsign,display_name,institution,skill_level,goals,interests,is_public,updated_at")
@@ -221,16 +232,16 @@
       renderLeaderboard(enriched);
     } catch (err) {
       console.error(err);
-      list.innerHTML =
-        `<div class="empty-state">Could not load explorers.<br><span class="mono">${escapeHTML(err.message || "")}</span></div>`;
-      body.innerHTML =
-        `<tr><td colspan="6" class="empty-state">Sector board unavailable.<br><span class="mono">${escapeHTML(err.message || "")}</span></td></tr>`;
+      if (list) {
+        list.innerHTML =
+          `<div class="empty-state">Could not load explorers.<br><span class="mono">${escapeHTML(err.message || "")}</span></div>`;
+      }
+      if (body) {
+        body.innerHTML =
+          `<tr><td colspan="6" class="empty-state">Sector board unavailable.<br><span class="mono">${escapeHTML(err.message || "")}</span></td></tr>`;
+      }
     }
   }
-
-  // Note: lab_completions SELECT was revoked for anon in hardened schema.
-  // Add a small public aggregate RPC so the board can show mission counts fairly.
-  // Until that RPC is applied, explorers still appear; counts may stay at 0.
 
   const label = $("connectionLabel");
   if (label) {

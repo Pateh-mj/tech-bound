@@ -370,3 +370,147 @@
     width: 100%;
   }
 }
+
+/* ---------- View transitions (login vs dashboard) ---------- */
+.view-login .admin-shell,
+.view-dashboard .login-gate {
+  display: none !important;
+}
+
+.login-gate {
+  animation: fadeIn 0.25s ease;
+}
+
+.admin-shell {
+  animation: fadeIn 0.25s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Prevent layout jump while bootstrapping */
+.admin-body:not(.view-login):not(.view-dashboard) .login-gate,
+.admin-body:not(.view-login):not(.view-dashboard) .admin-shell {
+  visibility: hidden;
+}
+
+.login-label + .login-label {
+  margin-top: 4px;
+}
+
+#loginButton:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+/* ========== Admin / hub mobile extras ========== */
+@media (max-width: 900px) {
+  .login-card {
+    padding: 28px 20px;
+  }
+  .login-card h1 {
+    font-size: 22px;
+  }
+  .admin-stats {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  .admin-topbar {
+    flex-wrap: wrap;
+    height: auto;
+    min-height: 64px;
+    padding: 10px 14px;
+    gap: 10px;
+  }
+  .admin-topbar .topnav {
+    display: flex;
+    order: 3;
+    width: 100%;
+    overflow-x: auto;
+    gap: 4px;
+    padding-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .admin-topbar .nav-link {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    font-size: 11px;
+    padding: 8px 10px;
+  }
+}
+
+@media (max-width: 600px) {
+  .admin-stats,
+  .stats-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .admin-main {
+    padding-top: 12px;
+  }
+  .directory-table {
+    min-width: 480px;
+  }
+  .mission-bar-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .mission-bar-count {
+    text-align: left;
+  }
+  .timeline-item {
+    grid-template-columns: 1fr;
+  }
+  .login-gate {
+    padding: 16px;
+  }
+}
+
+@media (hover: none) {
+  .admin-topbar .nav-link,
+  .button {
+    min-height: 44px;
+  }
+}
+
+
+/* ===== ADMIN MOBILE NAV FIX ===== */
+@media (max-width:900px){
+  .admin-topbar{
+    flex-wrap:wrap;
+    height:auto !important;
+    min-height:64px;
+    padding:10px 14px !important;
+    gap:10px;
+  }
+  .admin-topbar .nav-toggle{
+    display:inline-flex !important;
+  }
+  .admin-topbar .topnav{
+    display:none !important;
+    order:3;
+    width:100% !important;
+    flex-direction:column !important;
+    gap:4px !important;
+    padding:8px 0 4px !important;
+    overflow:visible !important;
+  }
+  .admin-topbar .topnav.open{
+    display:flex !important;
+  }
+  .admin-topbar .topnav .nav-link{
+    width:100%;
+    text-align:left;
+    padding:12px 14px !important;
+    font-size:13px !important;
+  }
+}
+@media (min-width:901px){
+  .admin-topbar .nav-toggle{display:none !important}
+  .admin-topbar .topnav{
+    display:flex !important;
+    flex-direction:row !important;
+    width:auto !important;
+    order:unset;
+  }
+}
