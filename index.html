@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#07111f">
+  <meta name="description" content="A team discovery platform for technologists, builders, and security enthusiasts.">
+  <title>TECH//UNBOUND — Team Discovery Network</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="ambient ambient-a"></div><div class="ambient ambient-b"></div>
+  <header class="topbar">
+    <a class="brand" href="#overview" aria-label="Tech Unbound home">
+      <span class="brand-mark"><span></span><span></span><span></span></span>
+      <span>TECH<span class="brand-slash">//</span>UNBOUND</span>
+    </a>
+    <nav class="topnav" aria-label="Main navigation">
+      <a href="#overview" class="nav-link active" data-view-link="overview">Overview</a>
+      <a href="#disciplines" class="nav-link" data-view-link="disciplines">Interest map</a>
+      <a href="#range" class="nav-link" data-view-link="range">Cyber range</a>
+      <a href="#community" class="nav-link" data-view-link="community">Community</a>
+    </nav>
+    <div class="top-actions">
+      <span class="connection"><i></i><span id="connectionLabel">LOCAL MODE</span></span>
+      <button class="avatar-button" id="profileButton" title="Edit your profile"><span id="avatarInitials">?</span></button>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="hero panel" id="overview">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="pulse"></span> TEAM DISCOVERY NETWORK <span class="eyebrow-divider">/</span> NODE 001</div>
+        <h1>Find your people.<br><span>Build what's next.</span></h1>
+        <p class="hero-lead">A shared space for the curious minds shaping networks, software, security, hardware and everything in between.</p>
+        <div class="hero-actions">
+          <button class="button button-primary" id="exploreButton">Explore the network <span>↗</span></button>
+          <button class="button button-quiet" id="rangeButton"><span class="terminal-glyph">&gt;_</span> Enter cyber range</button>
+        </div>
+        <div class="hero-foot"><span class="tiny-dot"></span> Curious minds welcome. No experience level required.</div>
+      </div>
+      <div class="hero-visual" aria-label="Illustration of connected technology nodes">
+        <div class="visual-grid"></div>
+        <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+        <div class="orbit-node node-a">NET</div><div class="orbit-node node-b">DEV</div>
+        <div class="orbit-node node-c">SEC</div><div class="orbit-node node-d">HW</div>
+        <div class="core"><div class="core-inner"><span class="core-symbol">⌘</span><span class="core-label">CONNECTED</span></div></div>
+        <div class="visual-caption"><span>NETWORK STATUS</span><strong><i></i> EXPLORATION ACTIVE</strong></div>
+      </div>
+    </section>
+
+    <section class="stats-grid" aria-label="Network activity">
+      <article class="stat-card panel"><div class="stat-top"><span>COMMUNITY NODES</span><span class="stat-icon">◎</span></div><div class="stat-value" id="statVisitors">—</div><div class="stat-note">Profiles shared with the network</div></article>
+      <article class="stat-card panel"><div class="stat-top"><span>INTEREST SIGNALS</span><span class="stat-icon">⌁</span></div><div class="stat-value" id="statSignals">—</div><div class="stat-note">Interest selections recorded</div></article>
+      <article class="stat-card panel"><div class="stat-top"><span>LAB MISSIONS</span><span class="stat-icon">⌘</span></div><div class="stat-value" id="statMissions">—</div><div class="stat-note">Sandbox challenges completed</div></article>
+      <article class="stat-card panel"><div class="stat-top"><span>DISCIPLINES</span><span class="stat-icon">▦</span></div><div class="stat-value">08</div><div class="stat-note">Paths to explore and combine</div></article>
+    </section>
+
+    <section class="section-block" id="disciplines">
+      <div class="section-heading"><div><div class="eyebrow">01 / DISCOVER YOUR CURIOSITY</div><h2>The interest map</h2><p>Pick the fields you want to explore. This is about curiosity, not proving yourself.</p></div><span class="section-count">08 DISCIPLINES</span></div>
+      <div class="discipline-grid" id="disciplineGrid"></div>
+      <div class="interest-footer panel"><div><strong id="interestCount">0 interests selected</strong><p>Your selections help us find shared ground across the team.</p></div><button class="button button-primary" id="saveInterests">Save my interests <span>↗</span></button></div>
+    </section>
+
+    <section class="section-block" id="range">
+      <div class="section-heading"><div><div class="eyebrow">02 / CONTROLLED EXPERIMENTATION</div><h2>Cyber range <span class="tag tag-amber">SIMULATION</span></h2><p>Investigate a fictional system. Every target, account and response here is simulated.</p></div><span class="section-count">LAB // 01</span></div>
+      <div class="range-layout">
+        <aside class="range-sidebar panel">
+          <div class="side-title"><span class="status-led"></span> RANGE CONTROLS <span class="mono muted">LOCAL</span></div>
+          <div class="target-card"><div class="target-icon">▣</div><div><strong>ORION AUTH NODE</strong><small>Target: fictional service</small></div><span class="tag tag-green">ONLINE</span></div>
+          <div class="target-meta"><div><span>Environment</span><strong>Sandbox</strong></div><div><span>Network route</span><strong>Simulated</strong></div><div><span>Real systems</span><strong class="text-green">Not connected</strong></div></div>
+          <div class="mission-title">MISSIONS</div>
+          <button class="mission active" data-mission="inspect"><span class="mission-number">01</span><span><strong>Recon briefing</strong><small>Read the target notes</small></span><span class="mission-check" id="check-inspect">○</span></button>
+          <button class="mission" data-mission="validate"><span class="mission-number">02</span><span><strong>Input validation</strong><small>Test a mock login form</small></span><span class="mission-check" id="check-validate">○</span></button>
+          <button class="mission" data-mission="token"><span class="mission-number">03</span><span><strong>Find the flag</strong><small>Inspect the client-side clue</small></span><span class="mission-check" id="check-token">○</span></button>
+          <div class="lab-disclaimer">⚑ Training only. Do not enter real passwords, secrets or personal information.</div>
+        </aside>
+        <div class="terminal-panel panel">
+          <div class="terminal-top"><div class="window-dots"><i></i><i></i><i></i></div><span id="terminalTitle">ORION / RECON BRIEFING</span><span class="terminal-secure"><i></i> ISOLATED</span></div>
+          <div class="terminal-content" id="terminalContent" aria-live="polite"></div>
+          <div class="terminal-input-row" id="terminalInputRow"><span class="prompt-symbol">&gt;</span><input id="terminalInput" type="text" autocomplete="off" spellcheck="false" placeholder="Type a command or response…"><button class="button button-primary button-small" id="terminalSubmit">RUN</button></div>
+          <div class="terminal-bottom"><span>SIMULATED OUTPUT ONLY</span><span id="terminalHint">Select a mission to begin</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-block" id="community">
+      <div class="section-heading"><div><div class="eyebrow">03 / PEOPLE BEHIND THE SKILLS</div><h2>Community nodes</h2><p>Meet teammates by their interests, learning goals and the things they want to build.</p></div><button class="button button-outline" id="communityRefresh">Refresh nodes ↻</button></div>
+      <div class="community-layout">
+        <div class="community-list panel" id="communityList"><div class="empty-state">Connect the shared database to load community profiles.</div></div>
+        <aside class="profile-promo panel"><div class="promo-orbit"><span>✳</span></div><div class="eyebrow">YOUR NODE, YOUR STORY</div><h3>Bring your curiosity into the room.</h3><p>Choose a callsign, share as much or as little as you like, and help teammates discover what you could build together.</p><button class="button button-primary" id="createProfileButton">Create my profile ↗</button><div class="privacy-note"><span>◈</span> You control what you share. Activity tracking is disclosed and limited to this site.</div></aside>
+      </div>
+    </section>
+
+    <section class="section-block admin-section" id="insights">
+      <div class="section-heading"><div><div class="eyebrow">04 / NETWORK PULSE</div><h2>Interest observatory</h2><p>Shared, aggregate signals help organisers plan activities the team actually wants.</p></div><span class="tag tag-blue">AGGREGATE VIEW</span></div>
+      <div class="observatory panel"><div class="chart-heading"><div><strong>Interest distribution</strong><small>Based on saved, voluntary interest selections</small></div><span class="mono muted" id="chartMode">AWAITING DATA</span></div><div id="interestChart" class="interest-chart"><div class="empty-state">Connect Supabase and save some interests to populate the chart.</div></div><div class="observatory-foot"><span><i class="tiny-dot"></i> Counts reflect selections, not verified skill level.</span><button class="text-button" id="refreshAnalytics">Refresh analytics ↻</button></div></div>
+    </section>
+
+    <footer class="footer"><div class="brand brand-small"><span class="brand-mark"><span></span><span></span><span></span></span><span>TECH<span class="brand-slash">//</span>UNBOUND</span></div><span>BUILT FOR THE CURIOUS · V1.0</span><span>FICTIONAL LAB · PRIVACY FIRST</span></footer>
+  </main>
+
+  <dialog id="profileDialog" class="modal">
+    <form id="profileForm" method="dialog">
+      <div class="modal-head"><div><div class="eyebrow">IDENTITY / NODE CONFIGURATION</div><h2>Introduce your node</h2></div><button type="button" class="icon-button" id="closeProfile" aria-label="Close">×</button></div>
+      <p class="modal-copy">Use a callsign and optionally add a little context. Don't enter information you don't want other team members to see.</p>
+      <label>Callsign <input id="callsign" name="callsign" maxlength="28" required placeholder="e.g. PacketPilot"></label>
+      <label>Name <span class="optional">OPTIONAL</span><input id="displayName" name="displayName" maxlength="60" placeholder="Your name"></label>
+      <label>Learning institution <span class="optional">OPTIONAL</span><input id="institution" name="institution" maxlength="100" placeholder="College, university, or organisation"></label>
+      <label>Current level <select id="skillLevel" name="skillLevel"><option>Curious beginner</option><option>Learning by building</option><option>Intermediate</option><option>Experienced</option><option>Prefer not to say</option></select></label>
+      <label>What would you love to build or learn? <span class="optional">OPTIONAL</span><textarea id="goals" name="goals" maxlength="240" rows="3" placeholder="A project, skill, or team activity…"></textarea></label>
+      <label class="consent-label"><input id="shareProfile" type="checkbox" checked><span>Show my profile in the community list. I understand that shared profile fields can be seen by other participants.</span></label>
+      <div class="form-error" id="profileError" role="alert"></div>
+      <div class="modal-actions"><button type="button" class="button button-quiet" id="cancelProfile">Cancel</button><button type="submit" class="button button-primary">Save profile ↗</button></div>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
