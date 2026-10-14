@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#07111f">
+  <meta name="description" content="Tech Unbound Cyber Lab — safe simulated challenges for learning security thinking.">
+  <title>TECH//UNBOUND — Cyber Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="ambient ambient-a"></div>
+  <div class="ambient ambient-b"></div>
+
+  <header class="topbar">
+    <a class="brand" href="index.html" aria-label="Tech Unbound home">
+      <span class="brand-mark"><span></span><span></span><span></span></span>
+      <span>TECH<span class="brand-slash">//</span>UNBOUND</span>
+    </a>
+    <nav class="topnav" aria-label="Main navigation">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="index.html#disciplines" class="nav-link">Explore interests</a>
+      <a href="lab.html" class="nav-link active">Cyber lab</a>
+      <a href="index.html#community" class="nav-link">Our community</a>
+    </nav>
+    <div class="top-actions">
+      <span class="connection" id="connectionBadge"><i></i><span id="connectionLabel">LOCAL MODE</span></span>
+      <a class="avatar-button" href="index.html" title="Back to profile" style="display:grid;place-items:center;text-decoration:none"><span id="avatarInitials">?</span></a>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="section-block" style="margin-top:12px" id="range">
+      <div class="section-heading">
+        <div>
+          <div class="eyebrow">LAB // 01 · SIMULATION</div>
+          <h2>Cyber lab <span class="tag tag-amber">SAFE TRAINING</span></h2>
+          <p>Step into a fictional digital environment, work through practical challenges, and sharpen your problem-solving instincts. Nothing here touches real systems.</p>
+        </div>
+        <a class="button button-outline" href="cybersecurity.html">Related: Cybersecurity hub ↗</a>
+      </div>
+
+      <div class="range-layout">
+        <aside class="range-sidebar panel">
+          <div class="side-title"><span class="status-led"></span> LAB MISSIONS <span class="mono muted">ISOLATED</span></div>
+
+          <div class="target-card">
+            <div class="target-icon">▣</div>
+            <div>
+              <strong>ORION AUTH NODE</strong>
+              <small>Your first virtual environment</small>
+            </div>
+            <span class="tag tag-green">ONLINE</span>
+          </div>
+
+          <div class="target-meta">
+            <div><span>Environment</span><strong>Sandbox</strong></div>
+            <div><span>Network route</span><strong>Simulated</strong></div>
+            <div><span>Live systems</span><strong class="text-green">Disconnected</strong></div>
+          </div>
+
+          <div class="mission-title">CHOOSE YOUR CHALLENGE</div>
+
+          <button class="mission active" data-mission="inspect" type="button">
+            <span class="mission-number">01</span>
+            <span><strong>Know Your Target</strong><small>Explore the mission briefing</small></span>
+            <span class="mission-check" id="check-inspect">○</span>
+          </button>
+
+          <button class="mission" data-mission="validate" type="button">
+            <span class="mission-number">02</span>
+            <span><strong>Test the Input</strong><small>Explore a mock login form</small></span>
+            <span class="mission-check" id="check-validate">○</span>
+          </button>
+
+          <button class="mission" data-mission="token" type="button">
+            <span class="mission-number">03</span>
+            <span><strong>Track Down the Flag</strong><small>Follow the clues to the answer</small></span>
+            <span class="mission-check" id="check-token">○</span>
+          </button>
+
+          <div class="lab-disclaimer">
+            ⚑ Explore safely. Use fictional information only—never enter real passwords, secrets, or personal details.
+          </div>
+        </aside>
+
+        <div class="terminal-panel panel">
+          <div class="terminal-top">
+            <div class="window-dots"><i></i><i></i><i></i></div>
+            <span id="terminalTitle">ORION / MISSION BRIEFING</span>
+            <span class="terminal-secure"><i></i> ISOLATED</span>
+          </div>
+          <div class="terminal-content" id="terminalContent" aria-live="polite"></div>
+          <div class="terminal-input-row" id="terminalInputRow">
+            <span class="prompt-symbol">&gt;</span>
+            <input id="terminalInput" type="text" autocomplete="off" spellcheck="false" placeholder="Enter your answer or command…">
+            <button class="button button-primary button-small" id="terminalSubmit" type="button">RUN</button>
+          </div>
+          <div class="terminal-bottom">
+            <span>YOUR NEXT CLUE AWAITS</span>
+            <span id="terminalHint">Choose a mission to get started</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="brand brand-small">
+        <span class="brand-mark"><span></span><span></span><span></span></span>
+        <span>TECH<span class="brand-slash">//</span>UNBOUND</span>
+      </div>
+      <span>CONNECT · EXPLORE · BUILD</span>
+      <span>SAFE LEARNING · SHARED CURIOSITY</span>
+    </footer>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="lab.js"></script>
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#07111f">
+  <meta name="robots" content="noindex,nofollow">
+  <title>TECH//UNBOUND — Admin Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body class="admin-body view-dashboard">
+  <div class="ambient ambient-a"></div>
+  <div class="ambient ambient-b"></div>
+
+  <div id="adminShell" class="admin-shell">
+    <header class="topbar admin-topbar">
+      <a class="brand" href="index.html" aria-label="Back to public site">
+        <span class="brand-mark"><span></span><span></span><span></span></span>
+        <span>TECH<span class="brand-slash">//</span>UNBOUND</span>
+      </a>
+
+      <nav class="topnav" aria-label="Admin sections">
+        <button class="nav-link active" data-route="overview">Overview</button>
+        <button class="nav-link" data-route="directory">Participants</button>
+        <button class="nav-link" data-route="interests">Interests</button>
+        <button class="nav-link" data-route="activity">Activity</button>
+        <button class="nav-link" data-route="challenges">Challenges</button>
+      </nav>
+
+      <div class="top-actions">
+        <span class="connection connected" id="adminConnection"><i></i><span id="adminEmailLabel">ADMIN</span></span>
+        <button class="button button-quiet button-small" id="logoutButton">Sign out</button>
+      </div>
+    </header>
+
+    <main class="shell admin-main">
+
+      <!-- OVERVIEW -->
+      <section class="admin-panel active" id="panel-overview">
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">00 / COMMAND DECK</div>
+            <h2>Control Center Overview</h2>
+            <p>Live snapshot of community size, engagement and lab progress.</p>
+          </div>
+          <button class="button button-outline" id="refreshAll">Refresh all ↻</button>
+        </div>
+
+        <div class="stats-grid admin-stats">
+          <article class="stat-card panel">
+            <div class="stat-top"><span>TOTAL PROFILES</span><span class="stat-icon">◎</span></div>
+            <div class="stat-value" id="statProfiles">—</div>
+            <div class="stat-note">All profiles (public + private)</div>
+          </article>
+          <article class="stat-card panel">
+            <div class="stat-top"><span>PUBLIC NODES</span><span class="stat-icon">◈</span></div>
+            <div class="stat-value" id="statPublic">—</div>
+            <div class="stat-note">Visible in community list</div>
+          </article>
+          <article class="stat-card panel">
+            <div class="stat-top"><span>LAB COMPLETIONS</span><span class="stat-icon">⌘</span></div>
+            <div class="stat-value" id="statCompletions">—</div>
+            <div class="stat-note">Across all missions</div>
+          </article>
+          <article class="stat-card panel">
+            <div class="stat-top"><span>UNIQUE LABBERS</span><span class="stat-icon">⌁</span></div>
+            <div class="stat-value" id="statLabbers">—</div>
+            <div class="stat-note">Distinct participants who finished a mission</div>
+          </article>
+        </div>
+
+        <div class="admin-grid-2">
+          <div class="panel admin-card">
+            <div class="card-head">
+              <strong>Top interests</strong>
+              <span class="mono muted">ALL PROFILES</span>
+            </div>
+            <div id="overviewInterests" class="interest-chart compact">
+              <div class="empty-state">Loading…</div>
+            </div>
+          </div>
+          <div class="panel admin-card">
+            <div class="card-head">
+              <strong>Mission completion mix</strong>
+              <span class="mono muted">LAB // 01</span>
+            </div>
+            <div id="overviewMissions" class="mission-bars">
+              <div class="empty-state">Loading…</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PARTICIPANT DIRECTORY -->
+      <section class="admin-panel" id="panel-directory">
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">01 / PARTICIPANT DIRECTORY</div>
+            <h2>Community roster</h2>
+            <p>Search by callsign, institution or interest. Includes private profiles.</p>
+          </div>
+          <div class="search-row">
+            <input id="directorySearch" type="search" placeholder="Filter callsign, institution, interest…" class="admin-search">
+            <button class="button button-outline" id="refreshDirectory">↻</button>
+          </div>
+        </div>
+
+        <div class="panel directory-table-wrap">
+          <table class="directory-table" id="directoryTable">
+            <thead>
+              <tr>
+                <th>Callsign</th>
+                <th>Name / Institution</th>
+                <th>Level</th>
+                <th>Interests</th>
+                <th>Visibility</th>
+                <th>Updated</th>
+              </tr>
+            </thead>
+            <tbody id="directoryBody">
+              <tr><td colspan="6" class="empty-state">Loading directory…</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="directory-meta mono muted" id="directoryMeta"></div>
+      </section>
+
+      <!-- INTEREST ANALYTICS -->
+      <section class="admin-panel" id="panel-interests">
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">02 / INTEREST ANALYTICS</div>
+            <h2>What the community wants to explore</h2>
+            <p>Counts include both public and private profile selections.</p>
+          </div>
+          <button class="button button-outline" id="refreshInterests">Refresh ↻</button>
+        </div>
+
+        <div class="panel observatory">
+          <div class="chart-heading">
+            <div>
+              <strong>Discipline popularity</strong>
+              <small>Based on all saved interest arrays</small>
+            </div>
+            <span class="mono muted">ADMIN VIEW</span>
+          </div>
+          <div id="interestChartFull" class="interest-chart">
+            <div class="empty-state">Loading…</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ACTIVITY TIMELINE -->
+      <section class="admin-panel" id="panel-activity">
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">03 / ACTIVITY TIMELINE</div>
+            <h2>Engagement stream</h2>
+            <p>Recent section visits, interest toggles, lab attempts and completions.</p>
+          </div>
+          <div class="search-row">
+            <select id="activityFilter" class="admin-select">
+              <option value="all">All events</option>
+              <option value="site_opened">Site opened</option>
+              <option value="section_navigation">Section navigation</option>
+              <option value="interest_toggled">Interest toggled</option>
+              <option value="interests_saved">Interests saved</option>
+              <option value="profile_saved">Profile saved</option>
+              <option value="lab_mission_opened">Lab mission opened</option>
+              <option value="lab_attempt">Lab attempt</option>
+              <option value="lab_mission_completed">Lab completed</option>
+            </select>
+            <button class="button button-outline" id="refreshActivity">Refresh ↻</button>
+          </div>
+        </div>
+
+        <div class="panel timeline-wrap">
+          <div id="activityTimeline" class="timeline">
+            <div class="empty-state">Loading activity…</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CHALLENGE STATS -->
+      <section class="admin-panel" id="panel-challenges">
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">04 / CHALLENGE STATISTICS</div>
+            <h2>Cyber lab performance</h2>
+            <p>Completion counts and unique participants per mission.</p>
+          </div>
+          <button class="button button-outline" id="refreshChallenges">Refresh ↻</button>
+        </div>
+
+        <div class="stats-grid admin-stats" style="grid-template-columns:repeat(3,1fr)">
+          <article class="stat-card panel">
+            <div class="stat-top"><span>TOTAL COMPLETIONS</span><span class="stat-icon">⌘</span></div>
+            <div class="stat-value" id="chalTotal">—</div>
+          </article>
+          <article class="stat-card panel">
+            <div class="stat-top"><span>UNIQUE PARTICIPANTS</span><span class="stat-icon">◎</span></div>
+            <div class="stat-value" id="chalUnique">—</div>
+          </article>
+          <article class="stat-card panel">
+            <div class="stat-top"><span>MISSIONS LIVE</span><span class="stat-icon">⌁</span></div>
+            <div class="stat-value">03</div>
+          </article>
+        </div>
+
+        <div class="panel admin-card" style="margin-top:16px">
+          <div class="card-head">
+            <strong>Completions by mission</strong>
+            <span class="mono muted">ORION LAB</span>
+          </div>
+          <div id="challengeBars" class="mission-bars">
+            <div class="empty-state">Loading…</div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer admin-footer">
+        <div class="brand brand-small">
+          <span class="brand-mark"><span></span><span></span><span></span></span>
+          <span>TECH<span class="brand-slash">//</span>UNBOUND</span>
+        </div>
+        <span>ADMIN CONTROL CENTER · AUTHENTICATED</span>
+        <span id="lastRefresh">—</span>
+      </footer>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+</html>

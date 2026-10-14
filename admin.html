@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#07111f">
+  <meta name="robots" content="noindex,nofollow">
+  <title>TECH//UNBOUND — Admin Sign In</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body class="admin-body view-login">
+  <div class="ambient ambient-a"></div>
+  <div class="ambient ambient-b"></div>
+
+  <div id="loginGate" class="login-gate">
+    <div class="login-card panel">
+      <div class="login-brand">
+        <span class="brand-mark"><span></span><span></span><span></span></span>
+        <span>TECH<span class="brand-slash">//</span>UNBOUND</span>
+      </div>
+      <div class="eyebrow">RESTRICTED ACCESS</div>
+      <h1>Admin Control Center</h1>
+      <p class="login-lead">
+        Sign in with an authorised administrator account.
+        Only users listed in the <code>admin_users</code> table can access the dashboard.
+      </p>
+
+      <label class="login-label">Email
+        <input id="adminEmail" type="email" autocomplete="username" placeholder="admin@example.com">
+      </label>
+      <label class="login-label">Password
+        <input id="adminPassword" type="password" autocomplete="current-password" placeholder="••••••••">
+      </label>
+      <div class="form-error" id="loginError" role="alert"></div>
+      <button class="button button-primary" id="loginButton" style="width:100%;margin-top:8px">
+        Sign in <span>↗</span>
+      </button>
+      <p class="login-hint">
+        First admin? Create a user in Supabase Auth, then insert their UUID into
+        <code>admin_users</code> (see schema comments).
+      </p>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="admin-login.js"></script>
+</body>
+</html>
