@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#07111f">
+  <meta name="description" content="Software Development — what the field is, how to start, who is exploring it, and a transparent activity board.">
+  <title>TECH//UNBOUND — Software Development</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body data-discipline="Software Development" data-discipline-label="Software Development">
+  <div class="ambient ambient-a"></div>
+  <div class="ambient ambient-b"></div>
+
+  <header class="topbar">
+    <a class="brand" href="index.html" aria-label="Tech Unbound home">
+      <span class="brand-mark"><span></span><span></span><span></span></span>
+      <span>TECH<span class="brand-slash">//</span>UNBOUND</span>
+    </a>
+    <nav class="topnav" aria-label="Main navigation">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="index.html#disciplines" class="nav-link active">Explore interests</a>
+      <a href="lab.html" class="nav-link">Cyber lab</a>
+      <a href="index.html#community" class="nav-link">Our community</a>
+    </nav>
+    <div class="top-actions">
+      <span class="connection" id="connectionBadge"><i></i><span id="connectionLabel">LOCAL MODE</span></span>
+    </div>
+  </header>
+
+  <main class="shell">
+
+    <section class="hero panel" style="min-height:auto;margin-top:8px">
+      <div class="hero-copy" style="padding:clamp(28px,4vw,48px)">
+        <div class="eyebrow"><span class="pulse"></span> DISCIPLINE HUB <span class="eyebrow-divider">/</span> BUILD / SHIP</div>
+        <h1 style="font-size:clamp(28px,3.5vw,42px)">Software Development<br><span>Development</span></h1>
+        <p class="hero-lead">Programming, APIs, backend services, databases, and architecture. This hub is a place to understand the field, practise in small steps, and see who else is on the path.</p>
+        <div class="hero-actions">
+          <button class="button button-primary" id="toggleInterest" type="button">Add to my interests</button>
+          <a class="button button-quiet" href="index.html#disciplines">All interests</a>
+        </div>
+        <div class="hero-foot">
+          <span class="tiny-dot"></span>
+          <span id="interestStatus">Interest not selected on this device yet.</span>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true" style="min-height:260px">
+        <div class="visual-grid"></div>
+        <div class="core">
+          <div class="core-inner">
+            <span class="core-symbol">⌘</span>
+            <span class="core-label">BUILD</span>
+          </div>
+        </div>
+        <div class="visual-caption">
+          <span>FOCUS</span>
+          <strong><i></i> CODE · APIS · DATA</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-block">
+      <div class="section-heading">
+        <div>
+          <div class="eyebrow">01 / WHAT THIS FIELD IS</div>
+          <h2>Software Development in plain terms</h2>
+          <p>So you know what you are walking into — and what you are not.</p>
+        </div>
+      </div>
+      <div class="admin-grid-2">
+        <div class="panel admin-card">
+          <div class="card-head"><strong>What people in this field actually do</strong></div>
+          <ul style="margin:0;padding-left:18px;color:#9db0c2;font-size:12px;line-height:1.85">
+          <li>Turn problems into working software people can use</li>
+          <li>Design APIs and data models that stay understandable</li>
+          <li>Write, test, and refactor code with others</li>
+          <li>Ship increments instead of waiting for perfection</li>
+          <li>Debug under uncertainty and document decisions</li>
+          </ul>
+        </div>
+        <div class="panel admin-card">
+          <div class="card-head"><strong>Common entry paths</strong></div>
+          <ul style="margin:0;padding-left:18px;color:#9db0c2;font-size:12px;line-height:1.85">
+            <li><strong style="color:var(--text)">Backend</strong> — services, APIs, databases</li>
+            <li><strong style="color:var(--text)">Full-stack</strong> — end-to-end product features</li>
+            <li><strong style="color:var(--text)">Platform / tooling</strong> — developer experience and internal systems</li>
+            <li><strong style="color:var(--text)">Mobile</strong> — apps on phones and tablets</li>
+            <li><strong style="color:var(--text)">Quality / automation</strong> — tests that protect the team</li>
+          </ul>
+        </div>
+      </div>
+      <div class="panel admin-card" style="margin-top:14px">
+        <div class="card-head"><strong>Mindset that matters</strong></div>
+        <p style="margin:0;color:#9db0c2;font-size:12px;line-height:1.85">Small working slices beat big untested plans. Name things clearly. Prefer boring technology when the problem is already hard. Read error messages fully before you change code.</p>
+      </div>
+    </section>
+
+    <section class="section-block">
+      <div class="section-heading">
+        <div>
+          <div class="eyebrow">02 / HOW TO ENGAGE HERE</div>
+          <h2>Three concrete moves</h2>
+          <p>Engagement first. Later we use what people practise here to shape a stronger platform.</p>
+        </div>
+      </div>
+      <div class="stats-grid" style="grid-template-columns:repeat(3,1fr)">
+        <article class="stat-card panel">
+          <div class="stat-top"><span>01 · BUILD</span><span class="stat-icon">⌁</span></div>
+          <div class="stat-note" style="margin-top:10px;line-height:1.7;font-size:12px;color:var(--text)">Ship a tiny feature or script this week and show it to a peer.</div>
+        </article>
+        <article class="stat-card panel">
+          <div class="stat-top"><span>02 · INTEREST</span><span class="stat-icon">⌁</span></div>
+          <div class="stat-note" style="margin-top:10px;line-height:1.7;font-size:12px;color:var(--text)">Mark Software Development so others can find builders.</div>
+        </article>
+        <article class="stat-card panel">
+          <div class="stat-top"><span>03 · PEOPLE</span><span class="stat-icon">⌁</span></div>
+          <div class="stat-note" style="margin-top:10px;line-height:1.7;font-size:12px;color:var(--text)">Compare notes with people learning the same stack.</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-block">
+      <div class="section-heading">
+        <div>
+          <div class="eyebrow">03 / PRACTICE LOOPS</div>
+          <h2>Start small this week</h2>
+          <p>Concrete actions tied to this sector — not generic advice.</p>
+        </div>
+        <a class='button button-outline' href='index.html#disciplines'>All interests ↗</a>
+      </div>
+      <div class="discipline-grid" style="grid-template-columns:repeat(3,1fr)">
+        <a class="discipline-card" href="#" style="text-decoration:none;pointer-events:none">
+          <span class="discipline-icon">01</span>
+          <h3>One feature</h3>
+          <p>Define a problem in one sentence, implement the smallest useful version.</p>
+          <span class="discipline-meta">PRACTICE</span>
+        </a>
+        <a class="discipline-card" href="#" style="text-decoration:none;pointer-events:none">
+          <span class="discipline-icon">02</span>
+          <h3>Read code</h3>
+          <p>Trace someone else’s function and explain it out loud.</p>
+          <span class="discipline-meta">PRACTICE</span>
+        </a>
+        <a class="discipline-card" href="#" style="text-decoration:none;pointer-events:none">
+          <span class="discipline-icon">03</span>
+          <h3>Tests</h3>
+          <p>Add one automated check for a path that already broke once.</p>
+          <span class="discipline-meta">PRACTICE</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="section-block">
+      <div class="section-heading">
+        <div>
+          <div class="eyebrow">04 / SECTOR BOARD</div>
+          <h2>Transparent activity</h2>
+          <p>Public profiles that selected Software Development, ranked by lab missions completed. Engagement visibility — not a grade.</p>
+        </div>
+        <button class="button button-outline" id="refreshBoard" type="button">Refresh ↻</button>
+      </div>
+      <div class="panel directory-table-wrap">
+        <table class="directory-table">
+          <thead>
+            <tr>
+              <th style="width:48px">#</th>
+              <th>Callsign</th>
+              <th>Level</th>
+              <th>Lab missions</th>
+              <th>Visibility</th>
+              <th>Updated</th>
+            </tr>
+          </thead>
+          <tbody id="leaderboardBody">
+            <tr><td colspan="6" class="empty-state">Loading sector board…</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="directory-meta mono muted" id="boardMeta" style="margin-top:10px"></p>
+    </section>
+
+    <section class="section-block">
+      <div class="section-heading">
+        <div>
+          <div class="eyebrow">05 / FELLOW EXPLORERS</div>
+          <h2>Who is on this path</h2>
+          <p>Same public set as the board, shown as cards.</p>
+        </div>
+        <button class="button button-outline" id="refreshPeople" type="button">Refresh ↻</button>
+      </div>
+      <div class="community-list panel" id="peopleList">
+        <div class="empty-state">Loading explorers…</div>
+      </div>
+    </section>
+
+    <section class="section-block">
+      <div class="section-heading">
+        <div>
+          <div class="eyebrow">06 / ALL HUBS</div>
+          <h2>Every sector has a home</h2>
+          <p>Jump to another discipline or return to the interest map.</p>
+        </div>
+      </div>
+      <div class="discipline-grid" style="grid-template-columns:repeat(4,1fr)">
+        <a class="discipline-card" href="networking.html" style="text-decoration:none"><span class="discipline-icon">⌁</span><h3>Networking</h3><span class="discipline-meta">HUB</span></a>
+        <a class="discipline-card" href="cybersecurity.html" style="text-decoration:none"><span class="discipline-icon">⌑</span><h3>Cybersecurity</h3><span class="discipline-meta">HUB</span></a>
+        <a class="discipline-card" href="software-development.html" style="text-decoration:none"><span class="discipline-icon">⌘</span><h3>Software</h3><span class="discipline-meta">HUB</span></a>
+        <a class="discipline-card" href="frontend-uiux.html" style="text-decoration:none"><span class="discipline-icon">◈</span><h3>Frontend</h3><span class="discipline-meta">HUB</span></a>
+        <a class="discipline-card" href="ai-data.html" style="text-decoration:none"><span class="discipline-icon">⠿</span><h3>AI & Data</h3><span class="discipline-meta">HUB</span></a>
+        <a class="discipline-card" href="cloud-devops.html" style="text-decoration:none"><span class="discipline-icon">☁</span><h3>Cloud</h3><span class="discipline-meta">HUB</span></a>
+        <a class="discipline-card" href="electronics-iot.html" style="text-decoration:none"><span class="discipline-icon">⌬</span><h3>Electronics</h3><span class="discipline-meta">HUB</span></a>
+        <a class="discipline-card" href="product-innovation.html" style="text-decoration:none"><span class="discipline-icon">✳</span><h3>Product</h3><span class="discipline-meta">HUB</span></a>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="brand brand-small">
+        <span class="brand-mark"><span></span><span></span><span></span></span>
+        <span>TECH<span class="brand-slash">//</span>UNBOUND</span>
+      </div>
+      <span>CONNECT · EXPLORE · BUILD</span>
+      <span>SOFTWARE DEVELOPMENT HUB</span>
+    </footer>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="discipline.js"></script>
+</body>
+</html>
