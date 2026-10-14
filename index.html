@@ -20,13 +20,14 @@
       <span>TECH<span class="brand-slash">//</span>UNBOUND</span>
     </a>
 
-    <nav class="topnav" aria-label="Main navigation">
+    <nav class="topnav" id="siteNav" aria-label="Main navigation">
       <a href="#overview" class="nav-link active" data-view-link="overview">Home</a>
       <a href="#disciplines" class="nav-link" data-view-link="disciplines">Explore interests</a>
       <a href="lab.html" class="nav-link" data-view-link="range">Cyber lab</a>
       <a href="#community" class="nav-link" data-view-link="community">Our community</a>
     </nav>
 
+          <button type="button" class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="siteNav">☰</button>
     <div class="top-actions">
       <span class="connection"><i></i><span id="connectionLabel">LOCAL MODE</span></span>
       <button class="avatar-button" id="profileButton" title="Edit your profile"><span id="avatarInitials">?</span></button>
@@ -327,5 +328,6 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="config.js"></script>
   <script src="app.js"></script>
+  <script src="mobile-nav.js"></script>
 </body>
 </html>

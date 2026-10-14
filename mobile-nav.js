@@ -1,27 +1,17 @@
 (() => {
   "use strict";
 
-  function closeNav(nav, btn) {
-    if (!nav || !btn) return;
-    nav.classList.remove("open");
-    btn.setAttribute("aria-expanded", "false");
-    btn.textContent = "☰";
-    document.body.classList.remove("nav-open");
+  function ready(fn) {
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", fn);
+    else fn();
   }
 
-  function openNav(nav, btn) {
-    nav.classList.add("open");
-    btn.setAttribute("aria-expanded", "true");
-    btn.textContent = "✕";
-    document.body.classList.add("nav-open");
-  }
+  function wire(topbar, isAdmin) {
+    if (!topbar) return;
+    const nav = topbar.querySelector(".topnav");
+    if (!nav) return;
 
-  function initPublicNav() {
-    const topbar = document.querySelector(".topbar:not(.admin-topbar)");
-    const nav = topbar && topbar.querySelector(".topnav");
-    if (!topbar || !nav) return;
-
-    let btn = topbar.querySelector(".nav-toggle");
+    let btn = topbar.querySelector(".nav-toggle") || document.getElementById("navToggle");
     if (!btn) {
       btn = document.createElement("button");
       btn.type = "button";
@@ -34,80 +24,49 @@
       else topbar.appendChild(btn);
     }
 
-    btn.onclick = (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      if (nav.classList.contains("open")) closeNav(nav, btn);
-      else openNav(nav, btn);
-    };
+    // Always visible control on small screens via CSS; ensure not disabled
+    btn.hidden = false;
+    btn.style.visibility = "visible";
 
-    nav.querySelectorAll("a").forEach((a) => {
-      a.addEventListener("click", () => closeNav(nav, btn));
-    });
-
-    document.addEventListener("click", (e) => {
-      if (!nav.classList.contains("open")) return;
-      if (nav.contains(e.target) || btn.contains(e.target)) return;
-      closeNav(nav, btn);
-    });
-
-    window.addEventListener("resize", () => {
-      if (window.innerWidth > 760) closeNav(nav, btn);
-    });
-  }
-
-  function initAdminNav() {
-    const topbar = document.querySelector(".admin-topbar");
-    const nav = topbar && topbar.querySelector(".topnav");
-    if (!topbar || !nav) return;
-
-    let btn = topbar.querySelector(".nav-toggle");
-    if (!btn) {
-      btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "nav-toggle";
-      btn.setAttribute("aria-label", "Open menu");
+    const close = () => {
+      nav.classList.remove("open");
       btn.setAttribute("aria-expanded", "false");
       btn.textContent = "☰";
-      const actions = topbar.querySelector(".top-actions");
-      if (actions) topbar.insertBefore(btn, actions);
-      else topbar.appendChild(btn);
-    }
-
-    btn.onclick = (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      if (nav.classList.contains("open")) closeNav(nav, btn);
-      else openNav(nav, btn);
+      document.body.classList.remove("nav-open");
+    };
+    const open = () => {
+      nav.classList.add("open");
+      btn.setAttribute("aria-expanded", "true");
+      btn.textContent = "✕";
+      document.body.classList.add("nav-open");
     };
 
-    // Panel buttons (dashboard) — close menu after choosing a section
-    nav.querySelectorAll("[data-route], a.nav-link, button.nav-link").forEach((el) => {
-      el.addEventListener("click", () => {
-        // Defer so panel switch runs first
-        setTimeout(() => closeNav(nav, btn), 0);
-      });
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (nav.classList.contains("open")) close();
+      else open();
+    });
+
+    nav.querySelectorAll("a, button[data-route], .nav-link").forEach((el) => {
+      el.addEventListener("click", () => setTimeout(close, 0));
     });
 
     document.addEventListener("click", (e) => {
       if (!nav.classList.contains("open")) return;
       if (nav.contains(e.target) || btn.contains(e.target)) return;
-      closeNav(nav, btn);
+      close();
     });
 
+    const bp = isAdmin ? 900 : 760;
     window.addEventListener("resize", () => {
-      if (window.innerWidth > 900) closeNav(nav, btn);
+      if (window.innerWidth > bp) close();
     });
   }
 
-  function boot() {
-    initPublicNav();
-    initAdminNav();
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", boot);
-  } else {
-    boot();
-  }
+  ready(() => {
+    document.querySelectorAll(".topbar").forEach((bar) => {
+      wire(bar, bar.classList.contains("admin-topbar"));
+    });
+  });
 })();

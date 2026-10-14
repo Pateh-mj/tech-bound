@@ -21,12 +21,13 @@
       <span class="brand-mark"><span></span><span></span><span></span></span>
       <span>TECH<span class="brand-slash">//</span>UNBOUND</span>
     </a>
-    <nav class="topnav" aria-label="Main navigation">
+    <nav class="topnav" id="siteNav" aria-label="Main navigation">
       <a href="index.html" class="nav-link">Home</a>
       <a href="index.html#disciplines" class="nav-link active">Explore interests</a>
       <a href="lab.html" class="nav-link">Cyber lab</a>
       <a href="index.html#community" class="nav-link">Our community</a>
     </nav>
+          <button type="button" class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="siteNav">☰</button>
     <div class="top-actions">
       <span class="connection" id="connectionBadge"><i></i><span id="connectionLabel">LOCAL MODE</span></span>
     </div>
@@ -231,5 +232,6 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="config.js"></script>
   <script src="discipline.js"></script>
+  <script src="mobile-nav.js"></script>
 </body>
 </html>

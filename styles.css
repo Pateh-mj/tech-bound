@@ -161,3 +161,42 @@
   .nav-toggle{display:none !important}
   .topnav{display:flex !important;position:static !important;width:auto !important;flex-direction:row !important;padding:0 !important;background:transparent !important;box-shadow:none !important;border:0 !important}
 }
+
+/* ===== HAMBURGER — final override ===== */
+button.nav-toggle,
+.nav-toggle {
+  display: none;
+  width: 42px;
+  height: 42px;
+  border: 1px solid #2b5369;
+  border-radius: 10px;
+  background: #132a40;
+  color: #e9f1f8;
+  font-size: 20px;
+  line-height: 1;
+  padding: 0;
+  cursor: pointer;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+}
+@media screen and (max-width: 760px) {
+  button.nav-toggle,
+  .nav-toggle {
+    display: inline-flex !important;
+  }
+  header.topbar .topnav,
+  .topbar > .topnav {
+    display: none !important;
+  }
+  header.topbar .topnav.open,
+  .topbar > .topnav.open {
+    display: flex !important;
+  }
+}
+@media screen and (min-width: 761px) {
+  button.nav-toggle,
+  .nav-toggle {
+    display: none !important;
+  }
+}
